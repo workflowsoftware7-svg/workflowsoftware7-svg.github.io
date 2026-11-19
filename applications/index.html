@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apply Online | AutoStock</title>
+<style>
+:root {
+  --bg: #0d0d0f; --bg-card: #141417; --bg-card-hover: #1a1a22;
+  --fg: #e8e2d9; --fg-muted: #8a8580; --accent: #c45d3e; --accent-hover: #e06a4a;
+  --border: #2a2724; --radius: 8px; --shadow: 0 4px 24px rgba(0,0,0,0.15);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.6; }
+a { color: var(--accent); text-decoration: none; }
+img { max-width: 100%; display: block; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+</style>
+<style>
+.site-header { position: sticky; top: 0; z-index: 100; background: rgba(13,13,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.logo { font-size: 22px; font-weight: 700; color: var(--fg); letter-spacing: -0.5px; }
+.nav-links { display: flex; gap: 24px; list-style: none; }
+.nav-links a { color: var(--fg-muted); font-size: 15px; font-weight: 500; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; }
+.nav-links a:hover { color: var(--fg); background: rgba(255,255,255,0.05); }
+</style>
+<style>
+/* Hero */
+.hero {
+  background: linear-gradient(135deg, #0d0d0f 0%, #1a1520 60%, #1a1a24 100%);
+  padding: 80px 0; text-align: center;
+}
+.hero h1 { font-size: clamp(28px, 4vw, 48px); font-weight: 700; margin-bottom: 16px; }
+.hero p { color: var(--fg-muted); font-size: 18px; max-width: 600px; margin: 0 auto 32px; }
+</style>
+<style>
+/* Application form */
+.application-form {
+  max-width: 720px; margin: 40px auto; padding: 0 24px;
+}
+.form-card {
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 32px;
+}
+.form-card h2 { font-size: 24px; font-weight: 700; margin-bottom: 24px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-group { margin-bottom: 20px; }
+.form-group.full { grid-column: span 2; }
+.form-group label {
+  display: block; font-size: 14px; font-weight: 500; color: var(--fg);
+  margin-bottom: 8px;
+}
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 12px 14px; border-radius: 6px; border: 1px solid var(--border);
+  background: var(--bg); color: var(--fg); font-size: 15px; outline: none;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: var(--accent);
+}
+.form-group textarea { resize: vertical; min-height: 80px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-row .form-group { grid-column: span 1; }
+.form-hint { font-size: 12px; color: var(--fg-muted); margin-top: 6px; }
+.form-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.form-option {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 12px;
+  cursor: pointer; transition: all 0.2s; font-size: 14px; color: var(--fg);
+}
+.form-option:hover { border-color: var(--accent); }
+.form-option input { display: none; }
+.form-option.checked { border-color: var(--accent); background: rgba(196,93,62,0.1); }
+.form-option .option-label { font-weight: 500; }
+.form-submit {
+  width: 100%; padding: 16px; border: none; border-radius: 8px; background: var(--accent);
+  color: #fff; font-size: 17px; font-weight: 700; cursor: pointer;
+}
+.form-submit:hover { background: var(--accent-hover); color: #fff; }
+.form-success {
+  text-align: center; padding: 40px; background: var(--bg-card); border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.form-success h2 { color: var(--accent); font-size: 28px; margin-bottom: 12px; }
+.form-success p { color: var(--fg-muted); margin-bottom: 8px; }
+.form-success .highlight { color: var(--accent); font-weight: 700; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="logo">AutoStock<span style="color:var(--accent)">.</span></a>
+    <ul class="nav-links">
+      <li><a href="/cars">All Cars</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>Apply Online — It's Easy</h1>
+    <p>Fill in the form below and our sales team will contact you within 24 hours with the best options for your needs.</p>
+  </div>
+</section>
+
+<main style="padding:24px 0;">
+  <div class="container">
+    <div class="application-form">
+      <div class="form-card">
+        <form method="post" action="/applications/submit">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="full_name">Full Name *</label>
+              <input type="text" id="full_name" name="full_name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone *</label>
+              <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+              <label for="preferred_make">Preferred Make</label>
+              <input type="text" id="preferred_make" name="preferred_make">
+            </div>
+            <div class="form-group">
+              <label for="preferred_model">Preferred Model</label>
+              <input type="text" id="preferred_model" name="preferred_model">
+            </div>
+            <div class="form-group">
+              <label for="preferred_year">Year (optional)</label>
+              <input type="number" id="preferred_year" name="preferred_year">
+            </div>
+            <div class="form-group">
+              <label for="preferred_fuel">Fuel Type</label>
+              <select id="preferred_fuel" name="preferred_fuel">
+                <option value="">Any</option>
+                <option value="Petrol">Petrol</option>
+                <option value="Diesel">Diesel</option>
+                <option value="Electric">Electric</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="LPG">LPG</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="preferred_transmission">Transmission</label>
+              <select id="preferred_transmission" name="preferred_transmission">
+                <option value="">Any</option>
+                <option value="Manual">Manual</option>
+                <option value="Automatic">Automatic</option>
+                <option value="CVT">CVT</option>
+                <option value="Dual Clutch">Dual Clutch</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="preferred_body">Body Type</label>
+              <select id="preferred_body" name="preferred_body">
+                <option value="">Any</option>
+                <option value="Sedan">Sedan</option>
+                <option value="Hatchback">Hatchback</option>
+                <option value="SUV">SUV</option>
+                <option value="Coupe">Coupe</option>
+                <option value="Wagon">Wagon</option>
+                <option value="Convertible">Convertible</option>
+                <option value="Pickup">Pickup</option>
+                <option value="Van">Van</option>
+                <option value="Minivan">Minivan</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="budget_min">Budget (min)</label>
+              <input type="number" id="budget_min" name="budget_min" placeholder="R">
+            </div>
+            <div class="form-group">
+              <label for="budget_max">Budget (max)</label>
+              <input type="number" id="budget_max" name="budget_max" placeholder="R">
+            </div>
+            <div class="form-group full">
+              <label for="provinces">Preferred Location(s)</label>
+              <select id="provinces" name="provinces" multiple style="height:120px;">
+                <option value="["Gauteng"]">Gauteng</option>
+                <option value="["KwaZulu-Natal"]">KwaZulu-Natal</option>
+                <option value="["Western Cape"]">Western Cape</option>
+                <option value="["Eastern Cape"]">Eastern Cape</option>
+                <option value="["Northern Cape"]">Northern Cape</option>
+                <option value="["Free State"]">Free State</option>
+                <option value="["North West"]">North West</option>
+                <option value="["Mpumalanga"]">Mpumalanga</option>
+                <option value="["Limpopo"]">Limpopo</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" id="city" name="city">
+            </div>
+            <div class="form-group">
+              <label for="postal_code">Postal/Zip Code</label>
+              <input type="text" id="postal_code" name="postal_code">
+            </div>
+            <div class="form-group full">
+              <label for="message">Additional Message</label>
+              <textarea id="message" name="message" placeholder="Tell us what you're looking for, budget, timeframe..."></textarea>
+            </div>
+          </div>
+
+          <div class="form-options" style="margin-top:20px;">
+            <label class="form-option">
+              <input type="checkbox" name="test_drive_needed" value="true">
+              <span class="option-label">I want to book a test drive</span>
+            </label>
+            <label class="form-option">
+              <input type="checkbox" name="trade_in_needed" value="true">
+              <span class="option-label">I'm trading in my vehicle</span>
+            </label>
+            <label class="form-option">
+              <input type="checkbox" name="financing_needed" value="true">
+              <span class="option-label">I need finance options</span>
+            </label>
+            <label class="form-option">
+              <input type="checkbox" name="vehicle_id" value="1">
+              <span class="option-label">Interested in: 2024 Toyota Land Cruiser (R899,000)</span>
+            </label>
+          </div>
+
+          <button type="submit" class="form-submit">Submit Application</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+
+
+<script>
+// Static demo: there is no backend on GitHub Pages, so block form posts.
+document.addEventListener('submit', function (e) {
+  e.preventDefault();
+  alert('This is the static demo on GitHub Pages — form submissions are disabled.\n\nRun the live app for the full interactive site.');
+}, true);
+</script>
+</body>
+</html>

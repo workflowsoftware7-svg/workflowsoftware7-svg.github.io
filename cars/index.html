@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AutoStock Motors — Find Your Perfect Drive</title>
+<style>
+:root {
+  --bg: #0d0d0f; --bg-card: #141417; --bg-card-hover: #1a1a22;
+  --fg: #e8e2d9; --fg-muted: #8a8580; --accent: #c45d3e; --accent-hover: #e06a4a;
+  --border: #2a2724; --radius: 8px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; background: var(--bg); color: var(--fg); }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+.header { background: #08080a; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+.header-inner { display: flex; justify-content: space-between; align-items: center; height: 64px; }
+.brand { font-size: 22px; font-weight: 800; color: var(--fg); display: flex; align-items: center; gap: 10px; }
+.brand .logo { width: 36px; height: 36px; background: var(--accent); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 18px; font-weight: 800; }
+.nav { display: flex; gap: 8px; }
+.nav a { padding: 8px 16px; border-radius: 6px; color: var(--fg-muted); font-size: 15px; transition: all 0.2s; }
+.nav a:hover { background: rgba(196,93,62,0.15); color: var(--accent); }
+.nav a.active { background: var(--accent); color: #fff; }
+.header-actions { display: flex; gap: 12px; align-items: center; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; }
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-outline { background: transparent; color: var(--fg); border: 1px solid var(--border); }
+.btn-outline:hover { border-color: var(--accent); }
+.hero { padding: 64px 0; background: linear-gradient(180deg, #08080a 0%, #141417 100%); }
+.hero-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+.hero-content h1 { font-size: 48px; line-height: 1.1; margin-bottom: 16px; font-weight: 800; }
+.hero-content p { font-size: 18px; color: var(--fg-muted); margin-bottom: 24px; }
+.hero-stats { display: flex; gap: 32px; margin-top: 32px; }
+.hero-stat .number { font-size: 32px; font-weight: 800; color: var(--accent); }
+.hero-stat .label { color: var(--fg-muted); font-size: 14px; }
+.hero-badge { display: inline-block; background: rgba(196,93,62,0.15); color: var(--accent); padding: 6px 16px; border-radius: 20px; font-size: 14px; font-weight: 700; margin-bottom: 16px; }
+.search-bar { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 80px; gap: 12px; align-items: end; }
+.search-bar label { font-size: 13px; color: var(--fg-muted); font-weight: 500; }
+.search-bar input, .search-bar select { width: 100%; padding: 12px 14px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); color: var(--fg); font-size: 15px; outline: none; }
+.search-bar input:focus { border-color: var(--accent); }
+.btn-search { background: var(--accent); color: #fff; padding: 12px 24px; font-size: 16px; border-radius: 6px; cursor: pointer; border: none; font-weight: 700; }
+.btn-search:hover { background: var(--accent-hover); }
+.footer { border-top: 1px solid var(--border); margin-top: 64px; padding: 32px 0; background: #08080a; }
+.footer-inner { display: flex; flex-direction: column; gap: 16px; }
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; }
+.footer-col h4 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; color: var(--fg-muted); }
+.footer-col a { display: block; font-size: 14px; color: var(--fg-muted); margin-bottom: 6px; }
+.footer-col a:hover { color: var(--accent); }
+.footer-bottom { border-top: 1px solid var(--border); margin-top: 24px; padding-top: 24px; text-align: center; font-size: 13px; color: var(--fg-muted); }
+
+/* Responsive: tablet */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; gap: 32px; }
+  .search-bar { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+/* Responsive: phone */
+@media (max-width: 640px) {
+  .container { padding: 0 16px; }
+  .header-inner { height: auto; min-height: 64px; flex-wrap: wrap; gap: 8px; padding: 10px 0; }
+  .nav { order: 3; width: 100%; justify-content: space-between; gap: 2px; overflow-x: auto; }
+  .nav a { padding: 8px 10px; font-size: 14px; white-space: nowrap; }
+  .header-actions { gap: 8px; }
+  .header-actions .btn { padding: 8px 12px; font-size: 13px; }
+  .hero { padding: 40px 0; }
+  .hero-content h1 { font-size: 32px; }
+  .hero-content p { font-size: 16px; }
+  .hero-stats { gap: 20px; flex-wrap: wrap; }
+  .hero-stat .number { font-size: 26px; }
+  .search-bar { grid-template-columns: 1fr 1fr; padding: 16px; gap: 10px; }
+  .search-bar .btn-search { grid-column: span 2; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="/" class="brand">
+      <span class="logo">A</span> AutoStock
+    </a>
+    <nav class="nav">
+      <a href="/" class="active">Home</a>
+      <a href="/cars">Cars</a>
+      <a href="/test-drives">Test Drive</a>
+      <a href="/contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a href="/login" class="btn btn-outline">Login</a>
+      <a href="/applications" class="btn btn-primary">Online Application</a>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+<section class="hero">
+  <div class="container hero-inner">
+    <div class="hero-content">
+      <span class="hero-badge">AutoStock Motors</span>
+      <h1>Search Our Inventory</h1>
+      <p>11 vehicles available right now. Filter by make, model, body type, and more.</p>
+    </div>
+    <div class="search-bar">
+      <label for="f_make">Make</label>
+      <select id="f_make" name="make" onchange="location=this.form.action" formaction="/cars">
+        <option value="">Any make</option>
+        
+        <option value="Toyota" >Toyota</option>
+        
+        <option value="Volkswagen" >Volkswagen</option>
+        
+        <option value="Ford" >Ford</option>
+        
+        <option value="Hyundai" >Hyundai</option>
+        
+        <option value="Toyota" >Toyota</option>
+        
+        <option value="Mercedes-Benz" >Mercedes-Benz</option>
+        
+        <option value="BMW" >BMW</option>
+        
+        <option value="Honda" >Honda</option>
+        
+        <option value="Nissan" >Nissan</option>
+        
+        <option value="Mazda" >Mazda</option>
+        
+        <option value="Kia" >Kia</option>
+        
+      </select>
+      <label for="f_model">Model</label>
+      <select id="f_model" name="model">
+        <option value="">Any model</option>
+        
+        <option value="Corolla Cross" >Corolla Cross</option>
+        
+        <option value="Golf" >Golf</option>
+        
+        <option value="Fiesta ST" >Fiesta ST</option>
+        
+        <option value="Tucson" >Tucson</option>
+        
+        <option value="RAV4" >RAV4</option>
+        
+        <option value="C-Class" >C-Class</option>
+        
+        <option value="3 Series" >3 Series</option>
+        
+        <option value="Civic" >Civic</option>
+        
+        <option value="X-Trail" >X-Trail</option>
+        
+        <option value="CX-5" >CX-5</option>
+        
+        <option value="Sportage" >Sportage</option>
+        
+      </select>
+      <label for="f_year">Year</label>
+      <select id="f_year" name="year">
+        <option value="">Any year</option>
+        
+        
+        
+        
+        <option value="2024" >2024</option>
+        
+        
+        
+        
+        <option value="2024" >2024</option>
+        
+        
+        
+        
+        <option value="2023" >2023</option>
+        
+        
+        
+        
+        <option value="2023" >2023</option>
+        
+        
+        
+        
+        <option value="2023" >2023</option>
+        
+        
+        
+        
+        <option value="2023" >2023</option>
+        
+        
+        
+        
+        <option value="2024" >2024</option>
+        
+        
+        
+        
+        <option value="2024" >2024</option>
+        
+        
+        
+        
+        <option value="2024" >2024</option>
+        
+        
+        
+        
+        <option value="2024" >2024</option>
+        
+        
+        
+        
+        <option value="2024" >2024</option>
+        
+        
+      </select>
+      <label for="f_body">Body Type</label>
+      <select id="f_body" name="body_type">
+        <option value="">Any body type</option>
+        <option value="SUV" >SUV</option>
+        <option value="Sedan" >Sedan</option>
+        <option value="Hatchback" >Hatchback</option>
+        <option value="Coupe" >Coupe</option>
+        <option value="Wagon" >Wagon</option>
+        <option value="Convertible" >Convertible</option>
+        <option value="Pickup" >Pickup</option>
+        <option value="Van" >Van</option>
+        <option value="Minivan" >Minivan</option>
+      </select>
+      <label for="f_fuel">Fuel</label>
+      <select id="f_fuel" name="fuel_type">
+        <option value="">Any fuel</option>
+        <option value="Petrol" >Petrol</option>
+        <option value="Diesel" >Diesel</option>
+        <option value="Electric" >Electric</option>
+        <option value="Hybrid" >Hybrid</option>
+        <option value="LPG" >LPG</option>
+      </select>
+      <label for="f_condition">Condition</label>
+      <select id="f_condition" name="condition">
+        <option value="">Any condition</option>
+        <option value="New" >New</option>
+        <option value="Used" >Used</option>
+        <option value="Demo" >Demo</option>
+      </select>
+      <label for="f_price">Max Price</label>
+      <select id="f_price" name="max_price">
+        <option value="">Any price</option>
+        <option value="300000" >&le; R300k</option>
+        <option value="500000" >&le; R500k</option>
+        <option value="750000" >&le; R750k</option>
+        <option value="1000000" >&le; R1M</option>
+        <option value="2000000" >&le; R2M</option>
+      </select>
+      <button class="btn-search" onclick="location='/cars'">Apply</button>
+    </div>
+  </div>
+</section>
+
+<section class="container" style="padding-top:48px;padding-bottom:48px;">
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:24px;">
+    <h2 style="font-size:28px;font-weight:700;">
+      11 vehicles
+      
+    </h2>
+    <a href="/cars/new" style="color:var(--accent);font-weight:600;">Sell your car →</a>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;">
+    
+    <a href="/cars/1" style="display:block;text-decoration:none;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.2s;">
+      <div style="height:180px;overflow:hidden;background:#1a1a22;">
+        <img src="/static/images/vehicle-1.jpg" alt="Toyota Corolla Cross" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div style="padding:20px;">
+        <div style="font-size:15px;font-weight:700;color:var(--accent);">Toyota Corolla Cross</div>
+        <div style="font-size:14px;color:var(--fg-muted);margin-top:6px;">2024 · SUV · Petrol</div>
+        <div style="font-size:22px;font-weight:800;color:var(--fg);margin-top:12px;">R R 289,900.00</div>
+        <div style="font-size:13px;color:var(--fg-muted);margin-top:6px;">5000.0 km</div>
+        <div style="margin-top:12px;display:inline-block;padding:6px 14px;border-radius:20px;background:rgba(196,93,62,0.15);color:var(--accent);font-size:13px;font-weight:600;">New</div>
+      </div>
+    </a>
+    
+    <a href="/cars/2" style="display:block;text-decoration:none;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.2s;">
+      <div style="height:180px;overflow:hidden;background:#1a1a22;">
+        <img src="/static/images/vehicle-2.jpg" alt="Volkswagen Golf" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div style="padding:20px;">
+        <div style="font-size:15px;font-weight:700;color:var(--accent);">Volkswagen Golf</div>
+        <div style="font-size:14px;color:var(--fg-muted);margin-top:6px;">2024 · Hatchback · Petrol</div>
+        <div style="font-size:22px;font-weight:800;color:var(--fg);margin-top:12px;">R R 249,900.00</div>
+        <div style="font-size:13px;color:var(--fg-muted);margin-top:6px;">3000.0 km</div>
+        <div style="margin-top:12px;display:inline-block;padding:6px 14px;border-radius:20px;background:rgba(196,93,62,0.15);color:var(--accent);font-size:13px;font-weight:600;">New</div>
+      </div>
+    </a>
+    
+    <a href="/cars/3" style="display:block;text-decoration:none;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.2s;">
+      <div style="height:180px;overflow:hidden;background:#1a1a22;">
+        <img src="/static/images/vehicle-3.jpg" alt="Ford Fiesta ST" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div style="padding:20px;">
+        <div style="font-size:15px;font-weight:700;color:var(--accent);">Ford Fiesta ST</div>
+        <div style="font-size:14px;color:var(--fg-muted);margin-top:6px;">2023 · Hatchback · Petrol</div>
+        <div style="font-size:22px;font-weight:800;color:var(--fg);margin-top:12px;">R R 319,900.00</div>
+        <div style="font-size:13px;color:var(--fg-muted);margin-top:6px;">12000.0 km</div>
+        <div style="margin-top:12px;display:inline-block;padding:6px 14px;border-radius:20px;background:rgba(196,93,62,0.15);color:var(--accent);font-size:13px;font-weight:600;">New</div>
+      </div>
+    </a>
+    
+    <a href="/cars/4" style="display:block;text-decoration:none;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.2s;">
+      <div style="height:180px;overflow:hidden;background:#1a1a22;">
+        <img src="/static/images/vehicle-4.jpg" alt="Hyundai Tucson" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div style="padding:20px;">
+        <div style="font-size:15px;font-weight:700;color:var(--accent);">Hyundai Tucson</div>
+        <div style="font-size:14px;color:var(--fg-muted);margin-top:6px;">2023 · SUV · Petrol</div>
+        <div style="font-size:22px;font-weight:800;color:var(--fg);margin-top:12px;">R R 269,900.00</div>
+        <div style="font-size:13px;color:var(--fg-muted);margin-top:6px;">18000.0 km</div>
+        <div style="margin-top:12px;display:inline-block;padding:6px 14px;border-radius:20px;background:rgba(196,93,62,0.15);color:var(--accent);font-size:13px;font-weight:600;">Used</div>
+      </div>
+    </a>
+    
+    <a href="/cars/5" style="display:block;text-decoration:none;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.2s;">
+      <div style="height:180px;overflow:hidden;background:#1a1a22;">
+        <img src="/static/images/vehicle-5.jpg" alt="Toyota RAV4" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div style="padding:20px;">
+        <div style="font-size:15px;font-weight:700;color:var(--accent);">Toyota RAV4</div>
+        <div style="font-size:14px;color:var(--fg-muted);margin-top:6px;">2023 · SUV · Petrol</div>
+        <div style="font-size:22px;font-weight:800;color:var(--fg);margin-top:12px;">R R 349,900.00</div>
+        <div style="font-size:13px;color:var(--fg-muted);margin-top:6px;">22000.0 km</div>
+        <div style="margin-top:12px;display:inline-block;padding:6px 14px;border-radius:20px;background:rgba(196,93,62,0.15);color:var(--accent);font-size:13px;font-weight:600;">Used</div>
+      </div>
+    </a>
+    
+    <a href="/cars/6" style="display:block;text-decoration:none;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.2s;">
+      <div style="height:180px;overflow:hidden;background:#1a1a22;">
+        <img src="/static/images/vehicle-6.jpg" alt="Mercedes-Benz C-Class" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div style="padding:20px;">
+        <div style="font-size:15px;font-weight:700;color:var(--accent);">Mercedes-Benz C-Class</div>
+        <div style="font-size:14px;color:var(--fg-muted);margin-top:6px;">2023 · Sedan · Petrol</div>
+        <div style="font-size:22px;font-weight:800;color:var(--fg);margin-top:12px;">R R 479,900.00</div>
+        <div style="font-size:13px;color:var(--fg-muted);margin-top:6px;">15000.0 km</div>
+        <div style="margin-top:12px;display:inline-block;padding:6px 14px;border-radius:20px;background:rgba(196,93,62,0.15);color:var(--accent);font-size:13px;font-weight:600;">CertifiedPreOwned</div>
+      </div>
+    </a>
+    
+    <a href="/cars/7" style="display:block;text-decoration:none;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.2s;">
+      <div style="height:180px;overflow:hidden;background:#1a1a22;">
+        <img src="/static/images/vehicle-7.jpg" alt="BMW 3 Series" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div style="padding:20px;">
+        <div style="font-size:15px;font-weight:700;color:var(--accent);">BMW 3 Series</div>
+        <div style="font-size:14px;color:var(--fg-muted);margin-top:6px;">2024 · SUV · Petrol</div>
+        <div style="font-size:22px;font-weight:800;color:var(--fg);margin-top:12px;">R R 329,900.00</div>
+        <div style="font-size:13px;color:var(--fg-muted);margin-top:6px;">8000.0 km</div>
+        <div style="margin-top:12px;display:inline-block;padding:6px 14px;border-radius:20px;background:rgba(196,93,62,0.15);color:var(--accent);font-size:13px;font-weight:600;">New</div>
+      </div>
+    </a>
+    
+    <a href="/cars/8" style="display:block;text-decoration:none;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.2s;">
+      <div style="height:180px;overflow:hidden;background:#1a1a22;">
+        <img src="/static/images/vehicle-8.jpg" alt="Honda Civic" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div style="padding:20px;">
+        <div style="font-size:15px;font-weight:700;color:var(--accent);">Honda Civic</div>
+        <div style="font-size:14px;color:var(--fg-muted);margin-top:6px;">2024 · SUV · Petrol</div>
+        <div style="font-size:22px;font-weight:800;color:var(--fg);margin-top:12px;">R R 335,000.00</div>
+        <div style="font-size:13px;color:var(--fg-muted);margin-top:6px;">8000.0 km</div>
+        <div style="margin-top:12px;display:inline-block;padding:6px 14px;border-radius:20px;background:rgba(196,93,62,0.15);color:var(--accent);font-size:13px;font-weight:600;">New</div>
+      </div>
+    </a>
+    
+    <a href="/cars/9" style="display:block;text-decoration:none;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.2s;">
+      <div style="height:180px;overflow:hidden;background:#1a1a22;">
+        <img src="/static/images/vehicle-9.jpg" alt="Nissan X-Trail" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div style="padding:20px;">
+        <div style="font-size:15px;font-weight:700;color:var(--accent);">Nissan X-Trail</div>
+        <div style="font-size:14px;color:var(--fg-muted);margin-top:6px;">2024 · SUV · Petrol</div>
+        <div style="font-size:22px;font-weight:800;color:var(--fg);margin-top:12px;">R R 335,000.00</div>
+        <div style="font-size:13px;color:var(--fg-muted);margin-top:6px;">8000.0 km</div>
+        <div style="margin-top:12px;display:inline-block;padding:6px 14px;border-radius:20px;background:rgba(196,93,62,0.15);color:var(--accent);font-size:13px;font-weight:600;">New</div>
+      </div>
+    </a>
+    
+    <a href="/cars/10" style="display:block;text-decoration:none;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.2s;">
+      <div style="height:180px;overflow:hidden;background:#1a1a22;">
+        <img src="/static/images/vehicle-10.jpg" alt="Mazda CX-5" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div style="padding:20px;">
+        <div style="font-size:15px;font-weight:700;color:var(--accent);">Mazda CX-5</div>
+        <div style="font-size:14px;color:var(--fg-muted);margin-top:6px;">2024 · SUV · Petrol</div>
+        <div style="font-size:22px;font-weight:800;color:var(--fg);margin-top:12px;">R R 459,900.00</div>
+        <div style="font-size:13px;color:var(--fg-muted);margin-top:6px;">11000.0 km</div>
+        <div style="margin-top:12px;display:inline-block;padding:6px 14px;border-radius:20px;background:rgba(196,93,62,0.15);color:var(--accent);font-size:13px;font-weight:600;">New</div>
+      </div>
+    </a>
+    
+    <a href="/cars/11" style="display:block;text-decoration:none;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:all 0.2s;">
+      <div style="height:180px;overflow:hidden;background:#1a1a22;">
+        <img src="/static/images/vehicle-11.jpg" alt="Kia Sportage" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div style="padding:20px;">
+        <div style="font-size:15px;font-weight:700;color:var(--accent);">Kia Sportage</div>
+        <div style="font-size:14px;color:var(--fg-muted);margin-top:6px;">2024 · SUV · Petrol</div>
+        <div style="font-size:22px;font-weight:800;color:var(--fg);margin-top:12px;">R R 329,900.00</div>
+        <div style="font-size:13px;color:var(--fg-muted);margin-top:6px;">8000.0 km</div>
+        <div style="margin-top:12px;display:inline-block;padding:6px 14px;border-radius:20px;background:rgba(196,93,62,0.15);color:var(--accent);font-size:13px;font-weight:600;">New</div>
+      </div>
+    </a>
+    
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>AutoStock Motors</h4>
+        <p style="font-size:14px;color:var(--fg-muted);">Find your perfect drive with our wide selection.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="/cars">Browse Cars</a>
+        <a href="/test-drives">Book Test Drive</a>
+        <a href="/applications">Online Application</a>
+        <a href="/contact">Contact Us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="tel:+27115550199">+27 11 555 0199</a>
+        <a href="mailto:info@autostock.co.za">info@autostock.co.za</a>
+        <a href="/contact">123 Main Street, Johannesburg</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="/terms">Terms &amp; Conditions</a>
+        <a href="/privacy">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 AutoStock Motors. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+
+<script>
+// Static demo: there is no backend on GitHub Pages, so block form posts.
+document.addEventListener('submit', function (e) {
+  e.preventDefault();
+  alert('This is the static demo on GitHub Pages — form submissions are disabled.\n\nRun the live app for the full interactive site.');
+}, true);
+</script>
+</body>
+</html>

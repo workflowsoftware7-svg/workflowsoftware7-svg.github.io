@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact Us | AutoStock</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; background: #0d0d0f; color: #e8e2d9; line-height: 1.6; }
+a { color: #c45d3e; text-decoration: none; }
+img { max-width: 100%; display: block; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+.site-header { position: sticky; top: 0; z-index: 100; background: rgba(13,13,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid #2a2724; }
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.logo { font-size: 22px; font-weight: 700; color: #e8e2d9; letter-spacing: -0.5px; }
+.nav-links { display: flex; gap: 24px; list-style: none; }
+.nav-links a { color: #8a8580; font-size: 15px; font-weight: 500; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; }
+.nav-links a:hover { color: #e8e2d9; background: rgba(255,255,255,0.05); }
+.hero { background: linear-gradient(135deg, #0d0d0f 0%, #1a1520 60%, #1a1a24 100%); padding: 80px 0; text-align: center; }
+.hero h1 { font-size: clamp(28px, 4vw, 48px); font-weight: 700; margin-bottom: 16px; color: #e8e2d9; }
+.hero p { color: #8a8580; font-size: 18px; max-width: 600px; margin: 0 auto 32px; }
+</style>
+<style>
+.contact-form {
+  max-width: 720px; margin: 40px auto; padding: 0 24px;
+  background: #141417; border: 1px solid #2a2724; border-radius: 12px; padding: 32px;
+}
+.contact-form h2 { font-size: 24px; font-weight: 700; margin-bottom: 24px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-size: 14px; font-weight: 500; color: #8a8580; margin-bottom: 8px; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 12px 14px; border-radius: 6px; border: 1px solid #2a2724;
+  background: #0d0d0f; color: #e8e2d9; font-size: 15px; outline: none;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #c45d3e; }
+.form-group textarea { resize: vertical; min-height: 100px; }
+.form-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
+.form-option {
+  background: #0d0d0f; border: 1px solid #2a2724; border-radius: 6px; padding: 12px;
+  cursor: pointer; transition: all 0.2s; font-size: 14px; color: #e8e2d9;
+}
+.form-option:hover { border-color: #c45d3e; }
+.form-option input { display: none; }
+.form-option.checked { border-color: #c45d3e; background: rgba(196,93,62,0.1); }
+.form-submit {
+  width: 100%; padding: 16px; border: none; border-radius: 8px; background: #c45d3e;
+  color: #fff; font-size: 17px; font-weight: 700; cursor: pointer; margin-top: 20px;
+}
+.form-submit:hover { background: #e06a4a; color: #fff; }
+.form-success {
+  text-align: center; padding: 40px; background: #141417; border: 1px solid #2a2724; border-radius: 12px;
+}
+.form-success h2 { color: #c45d3e; font-size: 28px; margin-bottom: 8px; }
+.form-success p { color: #8a8580; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="logo">AutoStock<span style="color:#c45d3e">.</span></a>
+    <ul class="nav-links">
+      <li><a href="/cars">All Cars</a></li>
+      <li><a href="/applications">Apply Online</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>Get In Touch</h1>
+    <p>Questions about a vehicle? We'd love to hear from you.</p>
+  </div>
+</section>
+
+<main style="padding:24px 0;">
+  <div class="container">
+    <div class="contact-form">
+      <form method="post" action="/contact">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="full_name">Full Name *</label>
+            <input type="text" id="full_name" name="full_name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+          <div class="form-group">
+            <label for="category">Category *</label>
+            <select id="category" name="category" required>
+              <option value="">Select a category</option>
+              <option value="Sales">Sales Inquiry</option>
+              <option value="Test Drive">Test Drive Booking</option>
+              <option value="Trade In">Trade In Enquiry</option>
+              <option value="Finance">Finance &amp; Insurance</option>
+              <option value="Service">Service Appointment</option>
+              <option value="Aftermarket">Aftermarket Parts</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject">
+          </div>
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+        </div>
+        <button type="submit" class="form-submit">Send Message</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+
+<script>
+// Static demo: there is no backend on GitHub Pages, so block form posts.
+document.addEventListener('submit', function (e) {
+  e.preventDefault();
+  alert('This is the static demo on GitHub Pages — form submissions are disabled.\n\nRun the live app for the full interactive site.');
+}, true);
+</script>
+</body>
+</html>

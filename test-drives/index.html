@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book a Test Drive | AutoStock</title>
+<style>
+:root {
+  --bg: #0d0d0f; --bg-card: #141417; --bg-card-hover: #1a1a22;
+  --fg: #e8e2d9; --fg-muted: #8a8580; --accent: #c45d3e; --accent-hover: #e06a4a;
+  --border: #2a2724; --radius: 8px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; background: var(--bg); color: var(--fg); line-height: 1.6; }
+a { color: var(--accent); text-decoration: none; }
+img { max-width: 100%; display: block; }
+.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+</style>
+<style>
+.site-header { position: sticky; top: 0; z-index: 100; background: rgba(13,13,15,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.header-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.logo { font-size: 22px; font-weight: 700; color: var(--fg); letter-spacing: -0.5px; }
+.nav-links { display: flex; gap: 24px; list-style: none; }
+.nav-links a { color: var(--fg-muted); font-size: 15px; font-weight: 500; padding: 8px 12px; border-radius: 6px; transition: all 0.2s; }
+.nav-links a:hover { color: var(--fg); background: rgba(255,255,255,0.05); }
+</style>
+<style>
+.hero { background: linear-gradient(135deg, #0d0d0f 0%, #1a1520 60%, #1a1a24 100%); padding: 80px 0; text-align: center; }
+.hero h1 { font-size: clamp(28px, 4vw, 48px); font-weight: 700; margin-bottom: 16px; }
+.hero p { color: var(--fg-muted); font-size: 18px; max-width: 600px; margin: 0 auto 32px; }
+</style>
+<style>
+.form-card {
+  max-width: 640px; margin: 40px auto; padding: 0 24px;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+  padding: 32px;
+}
+.form-card h2 { font-size: 24px; font-weight: 700; margin-bottom: 24px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; font-size: 14px; font-weight: 500; color: var(--fg); margin-bottom: 8px; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: 12px 14px; border-radius: 6px; border: 1px solid var(--border);
+  background: var(--bg); color: var(--fg); font-size: 15px; outline: none;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); }
+.form-group textarea { resize: vertical; min-height: 80px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-group.full { grid-column: span 2; }
+.form-options { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 20px; }
+.form-option {
+  background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 14px;
+  cursor: pointer; transition: all 0.2s; font-size: 14px; color: var(--fg);
+}
+.form-option:hover { border-color: var(--accent); }
+.form-option input { display: none; }
+.form-option.checked { border-color: var(--accent); background: rgba(196,93,62,0.1); }
+.form-option .option-label { font-weight: 500; }
+.form-submit {
+  width: 100%; padding: 16px; border: none; border-radius: 8px; background: var(--accent);
+  color: #fff; font-size: 17px; font-weight: 700; cursor: pointer; margin-top: 20px;
+}
+.form-submit:hover { background: var(--accent-hover); color: #fff; }
+.form-success {
+  text-align: center; padding: 40px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius);
+}
+.form-success h2 { color: var(--accent); font-size: 28px; margin-bottom: 8px; }
+.form-success p { color: var(--fg-muted); margin-bottom: 12px; }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="/" class="logo">AutoStock<span style="color:var(--accent)">.</span></a>
+    <ul class="nav-links">
+      <li><a href="/cars">All Cars</a></li>
+      <li><a href="/contact">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container">
+    <h1>Book a Test Drive</h1>
+    <p>Find your dream car and take it for a spin. Pick a date and time that works for you.</p>
+  </div>
+</section>
+
+<main style="padding:16px 0;">
+  <div class="container">
+    <div class="form-card">
+      <form method="post" action="/test-drives/book">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="first_name">First Name *</label>
+            <input type="text" id="first_name" name="first_name" required>
+          </div>
+          <div class="form-group">
+            <label for="last_name">Last Name *</label>
+            <input type="text" id="last_name" name="last_name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone *</label>
+            <input type="tel" id="phone" name="phone" required>
+          </div>
+          <div class="form-group">
+            <label for="appointment_date">Preferred Date *</label>
+            <input type="date" id="appointment_date" name="appointment_date" required min="">
+          </div>
+          <div class="form-group">
+            <label for="time_slot">Preferred Time *</label>
+            <select id="time_slot" name="time_slot" required>
+              <option value="">Select a time</option>
+              <option value="09:00">09:00 AM</option>
+              <option value="10:00">10:00 AM</option>
+              <option value="11:00">11:00 AM</option>
+              <option value="13:00">01:00 PM</option>
+              <option value="14:00">02:00 PM</option>
+              <option value="15:00">03:00 PM</option>
+              <option value="16:00">04:00 PM</option>
+            </select>
+          </div>
+          <div class="form-group full">
+            <label for="notes">Notes (optional)</label>
+            <textarea id="notes" name="notes" placeholder="Any specific vehicles you'd like to test, questions..."></textarea>
+          </div>
+        </div>
+        <div class="form-options" style="margin-top:16px;">
+          <label class="form-option">
+            <input type="checkbox" name="vehicle_id" value="1">
+            <span class="option-label">Interested in: 2024 Toyota Land Cruiser</span>
+          </label>
+          <label class="form-option">
+            <input type="checkbox" name="vehicle_id" value="2">
+            <span class="option-label">Interested in: 2024 Mercedes-Benz GLE 300d</span>
+          </label>
+        </div>
+        <button type="submit" class="form-submit">Confirm Booking</button>
+      </form>
+    </div>
+  </div>
+</main>
+
+
+<script>
+// Static demo: there is no backend on GitHub Pages, so block form posts.
+document.addEventListener('submit', function (e) {
+  e.preventDefault();
+  alert('This is the static demo on GitHub Pages — form submissions are disabled.\n\nRun the live app for the full interactive site.');
+}, true);
+</script>
+</body>
+</html>
